@@ -1,0 +1,61 @@
+{
+  "name": "@hugocxl/react-to-image",
+  "description": "Transform your React components into images",
+  "productName": "@hugocxl/react-to-image",
+  "version": "0.0.8",
+  "license": "MIT",
+  "private": false,
+  "author": "hugocxl (http://github.com/hugocxl)",
+  "homepage": "https://github.com/kbox-labs/react-echarts/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kbox-labs/react-echarts"
+  },
+  "bugs": {
+    "url": "https://github.com/kbox-labs/react-echarts/issues"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
+  "scripts": {
+    "dev": "tsup --format=esm,cjs --no-dts --watch",
+    "build": "tsup",
+    "test": "jest --coverage",
+    "changelog": "npx conventional-changelog-cli conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "postchangelog": "git add CHANGELOG.md && git commit -m 'CHANGELOG'",
+    "preversion": "git pull && pnpm i && pnpm test && pnpm build",
+    "postversion": "pnpm changelog && pnpm postchangelog && git push && git push --tags",
+    "format:check": "pnpm format --list-different",
+    "format:fix": "pnpm format --write",
+    "format": "prettier --cache --ignore-path .gitignore ./src",
+    "lint:check": "pnpm lint",
+    "lint:fix": "pnpm lint --fix",
+    "lint": "eslint --cache --ignore-path .gitignore ./src",
+    "setup:env": "npx vercel env pull .env.local",
+    "static:check": "pnpm lint:check && pnpm format:check && pnpm types:check",
+    "static:fix": "pnpm lint:fix && pnpm format:fix",
+    "types:check": "pnpm types --noEmit",
+    "types": "tsc"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0",
+    "@changesets/cli": "^2",
+    "@typescript-eslint/eslint-plugin": "^6",
+    "@typescript-eslint/parser": "^6",
+    "@vitest/coverage-v8": "^0.34.6",
+    "eslint-config-next": "^13",
+    "eslint-config-prettier": "^9",
+    "eslint": "^8",
+    "husky": "^8",
+    "lint-staged": "^14",
+    "prettier": "^3",
+    "rimraf": "^5",
+    "tsup": "^7",
+    "typescript": "^5",
+    "vitest": "^0"
+  }
+}
