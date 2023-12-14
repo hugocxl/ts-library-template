@@ -1,18 +1,18 @@
 {
-  "name": "@hugocxl/react-to-image",
-  "description": "Transform your React components into images",
-  "productName": "@hugocxl/react-to-image",
-  "version": "0.0.8",
+  "name": "@hugocxl/typescript-library-starter",
+  "description": "A template for crafting Typescript libraries",
+  "productName": "@hugocxl/typescript-library-starter",
+  "version": "0.0.0",
   "license": "MIT",
   "private": false,
   "author": "hugocxl (http://github.com/hugocxl)",
-  "homepage": "https://github.com/kbox-labs/react-echarts/",
+  "homepage": "https://github.com/hugocxl/typescript-library-starter/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kbox-labs/react-echarts"
+    "url": "https://github.com/hugocxl/typescript-library-starter"
   },
   "bugs": {
-    "url": "https://github.com/kbox-labs/react-echarts/issues"
+    "url": "https://github.com/hugocxl/typescript-library-starter/issues"
   },
   "files": [
     "dist"
@@ -21,25 +21,27 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "source": "src/index.ts",
+  "packageManager": "^pnpm@8.12.1",
   "scripts": {
     "dev": "tsup --format=esm,cjs --no-dts --watch",
     "build": "tsup",
-    "test": "jest --coverage",
-    "changelog": "npx conventional-changelog-cli conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
-    "postchangelog": "git add CHANGELOG.md && git commit -m 'CHANGELOG'",
-    "preversion": "git pull && pnpm i && pnpm test && pnpm build",
-    "postversion": "pnpm changelog && pnpm postchangelog && git push && git push --tags",
-    "format:check": "pnpm format --list-different",
-    "format:fix": "pnpm format --write",
-    "format": "prettier --cache --ignore-path .gitignore ./src",
+    "test": "vitest run",
+    "test:dev": "vitest dev -u",
+    "test:coverage": "vitest run --coverage",
+    "clean": "rm -rf dist && rm -rf node_modules",
+    "fix": "pnpm lint:fix . && pnpm format:fix .",
+    "lint": "eslint --cache",
     "lint:check": "pnpm lint",
     "lint:fix": "pnpm lint --fix",
-    "lint": "eslint --cache --ignore-path .gitignore ./src",
-    "setup:env": "npx vercel env pull .env.local",
-    "static:check": "pnpm lint:check && pnpm format:check && pnpm types:check",
-    "static:fix": "pnpm lint:fix && pnpm format:fix",
+    "format": "prettier --cache",
+    "format:check": "pnpm format --check",
+    "format:fix": "pnpm format --write",
+    "types": "tsc",
     "types:check": "pnpm types --noEmit",
-    "types": "tsc"
+    "prepare": "husky install",
+    "release": "changeset publish",
+    "release-dev": "changeset version --snapshot dev && changeset publish --tag dev",
+    "postversion": "git push && git push --tags"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0",
@@ -47,13 +49,11 @@
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
     "@vitest/coverage-v8": "^1.0.4",
-    "eslint-config-next": "^14",
-    "eslint-config-prettier": "^9",
     "eslint": "^8",
     "husky": "^8",
     "lint-staged": "^15",
     "prettier": "^3",
-    "rimraf": "^5",
+    "stylelint": "^16",
     "tsup": "^8",
     "typescript": "^5",
     "vitest": "^1"
